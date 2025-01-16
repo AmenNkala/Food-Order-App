@@ -50,6 +50,9 @@ function cartReducer(state, action) {
       return state;
     }
 
+    case "CLEAR_CART": {
+      return { ...state, items: [] };
+    }
     default:
       return state;
   }
@@ -66,7 +69,11 @@ export function CartContextProvider({ children }) {
     dispatchCartAction({ type: "REMOVE_ITEM", id });
   };
 
-  const cartCtx = { items: cart.items, addItem, removeItem };
+  const clearCart = () => {
+    dispatchCartAction({ type: "CLEAR_CART" });
+  };
+
+  const cartCtx = { items: cart.items, addItem, removeItem, clearCart };
 
   return (
     <CartContext.Provider value={cartCtx}>{children}</CartContext.Provider>
